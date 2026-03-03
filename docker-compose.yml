@@ -1,0 +1,102 @@
+# Phishing Bank - Plataforma educacional de pentest
+# VULN: Múltiplas vulnerabilidades intencionais para fins educacionais
+
+services:
+  nginx:
+    build: ./nginx
+    ports:
+      - "80:80"
+      - "443:443"
+    depends_on:
+      - backend
+      - frontend
+    volumes:
+      - ./nginx/nginx.conf:/etc/nginx/nginx.conf:ro
+      # VULN-27: .git exposto propositalmente (execute git init antes de subir)
+      - .:/var/www/phishingbank:ro
+
+  backend:
+    build: ./backend
+    environment:
+      - FLASK_APP=app
+      - FLASK_ENV=development
+      - DEBUG=True
+      - MYSQL_HOST=mysql
+      - MYSQL_PORT=3306
+      - MYSQL_DATABASE=phishingbank
+      - MYSQL_USER=phishingbank
+      - MYSQL_PASSWORD=bank123
+      - REDIS_URL=redis://redis:6379/0
+      - JWT_SECRET_KEY=bank@2024
+      - INTERNAL_API_KEY=sk_internal_phishbank_2024_prod
+    depends_on:
+      mysql:
+        condition: service_healthy
+      redis:
+        condition: service_healthy
+    volumes:
+      - ./backend:/app
+      - backend_uploads:/app/uploads
+
+  frontend:
+    build: ./frontend
+    environment:
+      - VITE_API_URL=http://localhost/api
+      - API_PROXY_TARGET=http://backend:5000
+    depends_on:
+      - backend
+
+  mysql:
+    image: mysql:8.0
+    environment:
+      MYSQL_ROOT_PASSWORD: root123
+      MYSQL_DATABASE: phishingbank
+      MYSQL_USER: phishingbank
+      MYSQL_PASSWORD: bank123
+    ports:
+      - "3306:3306"
+    volumes:
+      - mysql_data:/var/lib/mysql
+      - ./backend/init.sql:/docker-entrypoint-initdb.d/init.sql:ro
+    healthcheck:
+      test: ["CMD", "mysqladmin", "ping", "-h", "localhost"]
+      interval: 5s
+      timeout: 5s
+      retries: 10
+
+  redis:
+    image: redis:7-alpine
+    # VULN-04: Redis sem requirepass proposital
+    ports:
+      - "6379:6379"
+    healthcheck:
+      test: ["CMD", "redis-cli", "ping"]
+      interval: 5s
+      timeout: 5s
+      retries: 5
+
+  celery:
+    build: ./backend
+    command: celery -A app.celery_app worker -l info
+    environment:
+      - FLASK_APP=app
+      - MYSQL_HOST=mysql
+      - MYSQL_DATABASE=phishingbank
+      - MYSQL_USER=phishingbank
+      - MYSQL_PASSWORD=bank123
+      - REDIS_URL=redis://redis:6379/0
+    depends_on:
+      - backend
+      - redis
+
+  payment-service:
+    build: ./payment-service
+    # VULN-53: Service-to-service auth bypass proposital
+    ports:
+      - "8001:8001"
+    environment:
+      - NODE_ENV=development
+
+volumes:
+  mysql_data:
+  backend_uploads:

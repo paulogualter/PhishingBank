@@ -1,0 +1,43 @@
+# Phishing Bank - Backend Dependencies
+# Vulnerabilidades intencionais em várias libs
+
+Flask==3.0.0
+Flask-SQLAlchemy==3.1.1
+Flask-CORS==4.0.0
+Flask-SocketIO==5.3.6
+Flask-JWT-Extended==4.6.0
+PyJWT==2.8.0
+PyMySQL==1.1.0
+redis==5.0.1
+celery[redis]==5.3.4
+python-dotenv==1.0.0
+Werkzeug==3.0.1
+
+# Serialization - VULN pickle
+# pickle nativo do Python
+
+# XML - VULN XXE (não usar defusedxml)
+lxml==4.9.3
+
+# Crypto - VULN AES-ECB
+pycryptodome==3.19.0
+
+# GraphQL
+strawberry-graphql[flask]==0.215.0
+
+# PDF/HTML
+Jinja2==3.1.2
+reportlab==4.0.7
+weasyprint==60.2
+
+# LDAP
+ldap3==2.9.1
+
+# HTTP
+requests==2.31.0
+
+# SAML (vulnerável)
+python3-saml==1.15.0
+
+# Eventlet para SocketIO
+eventlet==0.33.3

@@ -1,0 +1,12 @@
+{
+  "name": "phishingbank-payment-service",
+  "version": "1.0.0",
+  "description": "VULN-53: Microserviço com auth bypass proposital",
+  "main": "server.js",
+  "scripts": {
+    "start": "node server.js"
+  },
+  "dependencies": {
+    "express": "^4.18.2"
+  }
+}
