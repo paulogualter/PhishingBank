@@ -74,8 +74,7 @@ Ver [RUN_LOCAL.md](RUN_LOCAL.md) para instruções de execução sem Docker.
 
 ## Para Instrutores
 
-- [VULNERABILITIES.md](docs/VULNERABILITIES.md) - Catálogo completo
+- [EXPLORACAO_E_MITIGACAO.md](docs/EXPLORACAO_E_MITIGACAO.md) - **Guia completo de exploração e mitigação** (requests, responses, curl, passo a passo)
 - [SETUP.md](docs/SETUP.md) - Instalação detalhada
-- [WALKTHROUGH.md](docs/WALKTHROUGH.md) - Guia de exploração
 
 Cada vulnerabilidade possui comentário no código: `# VULN-XX: [Nome] — Intencional para fins educacionais`

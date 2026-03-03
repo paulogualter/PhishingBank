@@ -45,3 +45,5 @@ npm run dev
 - `PUT /api/v3/settings/webhook` - Blind SSRF
 - `POST /api/v3/import/ofx` - XXE (XML no body)
 - `POST /api/v3/pix/validate-key` - ReDoS (body: `{"key":"..."}`)
+- `GET /api/v3/redirect?next=URL` - Open Redirect
+- `GET /api/v3/accounts/balance?account_id=1&account_id=2` - HPP (consultar saldo de outra conta)
