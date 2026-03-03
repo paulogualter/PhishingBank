@@ -27,6 +27,10 @@ def seed():
         db.drop_all()
         db.create_all()
         
+        # Agência padrão 0001, contas no formato brasileiro XXXXX-X
+        AGENCIAS = ["0001", "0001", "0001", "0002", "0002"]
+        CONTAS = ["10001-1", "20002-2", "30003-3", "40004-4", "50005-5"]
+
         for i, u in enumerate(USUARIOS):
             user = User(
                 nome=u["nome"],
@@ -42,11 +46,13 @@ def seed():
             )
             db.session.add(user)
             db.session.flush()
-            
+
             acc = Account(
                 user_id=user.id,
-                number=f"{(i+1)*10000:08d}",
+                agency=AGENCIAS[i],
+                number=CONTAS[i],
                 balance=u["saldo"],
+                account_type="corrente",
             )
             db.session.add(acc)
         

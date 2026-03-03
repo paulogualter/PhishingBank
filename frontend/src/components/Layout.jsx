@@ -7,7 +7,7 @@ export default function Layout() {
 
   const handleLogout = () => {
     logout()
-    navigate('/login')
+    navigate('/')
   }
 
   return (
@@ -19,12 +19,18 @@ export default function Layout() {
               <span className="text-xl font-bold">🏦 Phishing Bank</span>
               <span className="ml-2 text-sm opacity-80">Onde o Seu Dinheiro é Nosso Dinheiro</span>
             </div>
-            <div className="flex items-center gap-4">
+            <div className="flex items-center gap-6">
               <Link to="/" className="hover:text-accent transition">Dashboard</Link>
               <Link to="/extrato" className="hover:text-accent transition">Extrato</Link>
               <Link to="/transferir" className="hover:text-accent transition">Transferir</Link>
+              <Link to="/conta" className="hover:text-accent transition">Minha Conta</Link>
+              {user?.conta && (
+                <span className="text-xs font-mono bg-white/10 px-2 py-1 rounded">
+                  Ag. {user.conta.agency} | Cc. {user.conta.number}
+                </span>
+              )}
               <span className="text-sm">{user?.nome}</span>
-              <button onClick={handleLogout} className="bg-secondary px-4 py-2 rounded hover:opacity-90">
+              <button onClick={handleLogout} className="bg-white/10 px-4 py-2 rounded hover:bg-white/20 transition">
                 Sair
               </button>
             </div>

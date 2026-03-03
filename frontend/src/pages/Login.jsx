@@ -17,7 +17,7 @@ export default function Login() {
     setLoading(true)
     try {
       const { data } = await api.post('/auth/login', { email, password })
-      setAuth(data.access_token, { id: data.user_id, nome: data.nome })
+      setAuth(data.access_token, { id: data.user_id, nome: data.nome, conta: data.conta })
       navigate('/')
     } catch (err) {
       setError(err.response?.data?.error || 'Erro ao fazer login')

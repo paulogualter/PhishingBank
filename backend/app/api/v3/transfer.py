@@ -32,8 +32,14 @@ def pix_transfer():
     if amount <= 0:
         return jsonify({"error": "valor inválido"}), 400
     
-    # Encontrar conta destino por PIX key (simplificado - por account number)
+    # Encontrar conta destino por PIX key (número da conta)
     acc_to = Account.query.filter_by(number=pix_key).first()
+    if not acc_to:
+        pix_clean = pix_key.replace("-", "").replace(" ", "")
+        for acc in Account.query.all():
+            if acc.number.replace("-", "") == pix_clean:
+                acc_to = acc
+                break
     if not acc_to:
         return jsonify({"error": "chave PIX não encontrada"}), 404
     

@@ -25,6 +25,14 @@ npm run dev
 | joao@email.com | senha123 |
 | admin@phishingbank.com | admin123 |
 
+## Contas de teste (após seed)
+
+| Usuário | Agência | Conta | PIX (número conta) |
+|---------|---------|-------|---------------------|
+| João | 0001 | 10001-1 | 10001-1 |
+| Maria | 0001 | 20002-2 | 20002-2 |
+| Admin | 0001 | 30003-3 | 30003-3 |
+
 ## Endpoints para pentest
 
 - `POST /api/v3/auth/login` - Login

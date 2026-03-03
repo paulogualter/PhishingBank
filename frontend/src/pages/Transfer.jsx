@@ -1,5 +1,6 @@
 import { useState } from 'react'
 import api from '../services/api'
+import { useAuthStore } from '../store/authStore'
 
 export default function Transfer() {
   const [pixKey, setPixKey] = useState('')
@@ -7,6 +8,7 @@ export default function Transfer() {
   const [observacao, setObservacao] = useState('')
   const [loading, setLoading] = useState(false)
   const [message, setMessage] = useState(null)
+  const conta = useAuthStore((s) => s.user?.conta)
 
   const handleSubmit = async (e) => {
     e.preventDefault()
@@ -81,7 +83,7 @@ export default function Transfer() {
           </button>
         </form>
         <p className="mt-4 text-sm text-gray-500">
-          Use chave PIX: 00010000 para conta de João, 00020000 para Maria
+          Use número da conta: 10001-1 (João), 20002-2 (Maria)
         </p>
       </div>
     </div>

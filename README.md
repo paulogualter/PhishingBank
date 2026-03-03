@@ -31,7 +31,7 @@ Acesse: **http://localhost**
 | Maria Oliveira | maria@email.com | senha123 | premium |
 | Admin | admin@phishingbank.com | admin123 | admin |
 
-**Chaves PIX para teste:** 00010000 (João), 00020000 (Maria)
+**Contas:** Ag. 0001 | Cc. 10001-1 (João), 20002-2 (Maria). Use o número da conta como chave PIX.
 
 ## Vulnerabilidades (60 total)
 
