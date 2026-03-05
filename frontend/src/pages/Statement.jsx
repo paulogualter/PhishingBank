@@ -34,7 +34,7 @@ export default function Statement() {
       </div>
       <div className="divide-y max-h-[600px] overflow-y-auto">
         {transactions.map((tx) => (
-          <div key={tx.uuid} className="p-4 flex justify-between items-center hover:bg-gray-50">
+          <div key={tx.uuid} className="p-4 flex flex-col sm:flex-row sm:justify-between sm:items-center gap-1 hover:bg-gray-50">
             <div>
               <p className="font-medium">{tx.type?.toUpperCase()}</p>
               {/* VULN-25: observacao renderizado sem sanitização - Stored XSS */}

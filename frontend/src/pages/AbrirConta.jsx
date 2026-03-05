@@ -52,7 +52,7 @@ export default function AbrirConta() {
   return (
     <div className="min-h-screen bg-slate-900">
       <header className="border-b border-slate-700/50">
-        <div className="max-w-6xl mx-auto px-6 py-4 flex justify-between items-center">
+        <div className="max-w-6xl mx-auto px-4 sm:px-6 py-4 flex justify-between items-center">
           <Link to="/" className="flex items-center gap-3">
             <div className="w-10 h-10 rounded-lg bg-amber-500/20 flex items-center justify-center">
               <span className="text-amber-400 font-bold text-lg">PB</span>
@@ -65,8 +65,8 @@ export default function AbrirConta() {
         </div>
       </header>
 
-      <main className="max-w-md mx-auto px-6 py-12">
-        <div className="bg-slate-800/50 rounded-2xl border border-slate-700/50 p-8">
+      <main className="max-w-md mx-auto px-4 sm:px-6 py-8 sm:py-12">
+        <div className="bg-slate-800/50 rounded-2xl border border-slate-700/50 p-5 sm:p-8">
           <h1 className="text-2xl font-bold text-white mb-2">Abra sua conta</h1>
           <p className="text-slate-400 text-sm mb-6">
             Conta 100% digital com zero de anuidade. Comece com R$ 0,00 e adicione dinheiro quando quiser.
