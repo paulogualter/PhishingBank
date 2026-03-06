@@ -1,5 +1,6 @@
 import { useState } from 'react'
 import { useNavigate, Navigate, Link } from 'react-router-dom'
+import toast from 'react-hot-toast'
 import { useAuthStore } from '../store/authStore'
 import api from '../services/api'
 
@@ -8,7 +9,6 @@ export default function AbrirConta() {
   const [cpf, setCpf] = useState('')
   const [email, setEmail] = useState('')
   const [senha, setSenha] = useState('')
-  const [error, setError] = useState('')
   const [loading, setLoading] = useState(false)
   const navigate = useNavigate()
   const setAuth = useAuthStore((s) => s.setAuth)
@@ -26,7 +26,6 @@ export default function AbrirConta() {
 
   const handleSubmit = async (e) => {
     e.preventDefault()
-    setError('')
     setLoading(true)
     try {
       const { data } = await api.post('/auth/abrir-conta', {
@@ -34,15 +33,16 @@ export default function AbrirConta() {
         cpf: cpf.replace(/\D/g, ''),
         email: email.trim().toLowerCase(),
         senha,
-      })
+      }, { skipToast: true })
       setAuth(data.access_token, { id: data.user_id, nome: data.nome, conta: data.conta })
+      toast.success('Conta aberta com sucesso!')
       navigate('/app')
     } catch (err) {
       const msg = err.response?.data?.error
-      setError(
+      toast.error(
         msg === 'email_ja_cadastrado' ? 'E-mail já cadastrado' :
         msg === 'cpf_ja_cadastrado' ? 'CPF já cadastrado' :
-        err.response?.data?.error || 'Erro ao abrir conta'
+        msg || 'Erro ao abrir conta'
       )
     } finally {
       setLoading(false)
@@ -118,7 +118,6 @@ export default function AbrirConta() {
                 required
               />
             </div>
-            {error && <p className="text-red-400 text-sm">{error}</p>}
             <button
               type="submit"
               disabled={loading}

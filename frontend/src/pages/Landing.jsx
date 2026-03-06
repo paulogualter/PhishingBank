@@ -1,5 +1,6 @@
 import { useState } from 'react'
 import { useNavigate, Navigate, Link } from 'react-router-dom'
+import toast from 'react-hot-toast'
 import { useAuthStore } from '../store/authStore'
 import api from '../services/api'
 
@@ -7,7 +8,6 @@ export default function Landing() {
   const [agencia, setAgencia] = useState('')
   const [conta, setConta] = useState('')
   const [senha, setSenha] = useState('')
-  const [error, setError] = useState('')
   const [loading, setLoading] = useState(false)
   const navigate = useNavigate()
   const setAuth = useAuthStore((s) => s.setAuth)
@@ -17,18 +17,19 @@ export default function Landing() {
 
   const handleSubmit = async (e) => {
     e.preventDefault()
-    setError('')
     setLoading(true)
     try {
       const { data } = await api.post('/auth/login-bank', {
         agencia: agencia.replace(/\D/g, '') || '0001',
         conta: conta.trim(),
         senha,
-      })
+      }, { skipToast: true })
       setAuth(data.access_token, { id: data.user_id, nome: data.nome, conta: data.conta })
+      toast.success('Login realizado com sucesso!')
       navigate('/app')
     } catch (err) {
-      setError(err.response?.data?.error === 'conta_nao_encontrada' ? 'Agência e conta não encontrados' : err.response?.data?.error === 'senha_incorreta' ? 'Senha incorreta' : 'Erro ao acessar')
+      const msg = err.response?.data?.error === 'conta_nao_encontrada' ? 'Agência e conta não encontrados' : err.response?.data?.error === 'senha_incorreta' ? 'Senha incorreta' : 'Erro ao acessar'
+      toast.error(msg)
     } finally {
       setLoading(false)
     }
@@ -108,9 +109,6 @@ export default function Landing() {
                     required
                   />
                 </div>
-                {error && (
-                  <p className="text-red-400 text-xs">{error}</p>
-                )}
                 <button
                   type="submit"
                   disabled={loading}

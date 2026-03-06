@@ -18,12 +18,10 @@ npm run dev
 - **Frontend:** http://localhost:3000
 - **Backend API:** http://localhost:5001
 
-## Credenciais
+## Seed (dados iniciais)
 
-| Email | Senha |
-|-------|-------|
-| joao@email.com | senha123 |
-| admin@phishingbank.com | admin123 |
+- **Primeira execução:** O banco é populado automaticamente com usuários e transações.
+- **Resetar dados:** `cd backend && python seed_data.py --force`
 
 ## Contas de teste (após seed)
 

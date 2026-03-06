@@ -23,6 +23,8 @@ Acesse: **http://localhost**
 
 > **Nota:** Para a vulnerabilidade VULN-27 (.git exposto), execute `git init` antes de subir os containers.
 
+**Dados iniciais:** Na primeira execução, o banco é populado automaticamente com usuários e transações de teste. Para resetar: `docker-compose run --rm backend python seed_data.py --force`
+
 ## Credenciais de Teste
 
 | Usuário | Email | Senha | Role |
