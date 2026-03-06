@@ -70,24 +70,10 @@ PhishingBank/
 └── docs/        # Documentação
 ```
 
-## Banner / Imagem Hero
-
-Para alterar a imagem do banner na landing page:
-
-1. Coloque sua imagem em `frontend/public/` (ex: `meu-banner.jpg`)
-2. Edite `frontend/src/pages/Landing.jsx` e altere o `src` da tag `<img>`:
-   ```jsx
-   <img src="/meu-banner.jpg" alt="Phishing Bank" ... />
-   ```
-3. Formatos suportados: JPG, PNG, SVG, WebP. Recomendado: 1920×480px ou proporção 4:1.
-
 ## Desenvolvimento Local
 
 Ver [RUN_LOCAL.md](RUN_LOCAL.md) para instruções de execução sem Docker.
 
 ## Para Instrutores
 
-- [EXPLORACAO_E_MITIGACAO.md](docs/EXPLORACAO_E_MITIGACAO.md) - **Guia completo de exploração e mitigação** (requests, responses, curl, passo a passo)
 - [SETUP.md](docs/SETUP.md) - Instalação detalhada
-
-Cada vulnerabilidade possui comentário no código: `# VULN-XX: [Nome] — Intencional para fins educacionais`

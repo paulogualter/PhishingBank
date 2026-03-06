@@ -48,3 +48,7 @@ backend/uploads/*
 
 # Docker
 .docker/
+
+# Docs locais (vídeos explicativos serão criados)
+docs/EXPLORACAO_E_MITIGACAO.md
+HISTORICO.md
